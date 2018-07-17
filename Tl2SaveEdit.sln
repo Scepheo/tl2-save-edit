@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2042
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tl2-save-edit", "tl2-save-edit\tl2-save-edit.csproj", "{2C0C8B32-C7BD-47D6-9C43-ED618AF43393}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tl2SaveEdit", "tl2-save-edit\Tl2SaveEdit.csproj", "{2C0C8B32-C7BD-47D6-9C43-ED618AF43393}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

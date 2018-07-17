@@ -2,7 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>tl2_save_edit</RootNamespace>
+    <RootNamespace>Tl2SaveEdit</RootNamespace>
+    <AssemblyName>Tl2SaveEdit</AssemblyName>
   </PropertyGroup>
 
 </Project>
