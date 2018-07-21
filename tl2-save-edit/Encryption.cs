@@ -14,7 +14,7 @@ namespace Tl2SaveEdit
 
             // Decrypt
             var startIndex = 9;
-            var endIndex = data.Length - 4;
+            var endIndex = data.Length - 5;
 
             while (startIndex <= endIndex)
             {
@@ -44,7 +44,7 @@ namespace Tl2SaveEdit
 
             // Encrypt
             var startIndex = 9;
-            var endIndex = data.Length - 4;
+            var endIndex = data.Length - 5;
 
             while (startIndex <= endIndex)
             {
