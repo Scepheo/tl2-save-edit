@@ -2,15 +2,13 @@
 
 namespace Tl2SaveEdit
 {
-    internal static class Encryption
+    public static class Encryption
     {
-        public static byte[] Decrypt(byte[] data)
+        public static void Decrypt(byte[] data)
         {
-            var result = new byte[data.Length];
-
             // Remove checksum
             var checksum = (uint)0;
-            BitConverter.GetBytes(checksum).CopyTo(result, 5);
+            BitConverter.GetBytes(checksum).CopyTo(data, 5);
 
             // Decrypt
             var startIndex = 9;
@@ -29,18 +27,14 @@ namespace Tl2SaveEdit
             }
 
             // Write length
-            BitConverter.GetBytes(data.Length).CopyTo(result, result.Length - sizeof(int));
-
-            return result;
+            BitConverter.GetBytes(data.Length).CopyTo(data, data.Length - sizeof(int));
         }
 
-        public static byte[] Encrypt(byte[] data)
+        public static void Encrypt(byte[] data)
         {
-            var result = new byte[data.Length];
-
             // Write checksum
             var checksum = GetChecksum(data);
-            BitConverter.GetBytes(checksum).CopyTo(result, 5);
+            BitConverter.GetBytes(checksum).CopyTo(data, 5);
 
             // Encrypt
             var startIndex = 9;
@@ -59,9 +53,7 @@ namespace Tl2SaveEdit
             }
 
             // Write length
-            BitConverter.GetBytes(data.Length).CopyTo(result, result.Length - sizeof(int));
-
-            return result;
+            BitConverter.GetBytes(data.Length).CopyTo(data, data.Length - sizeof(int));
         }
 
         private static byte XorMask(byte value)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using Tl2SaveEdit.Data;
 
@@ -65,16 +66,133 @@ namespace Tl2SaveEdit
             saveFile.Unknown2Length = reader.ReadInt32();
             saveFile.Unknown2 = reader.ReadBytes(saveFile.Unknown2Length * 12);
 
-            // Unknown - Always seems to be 0
-            saveFile.Unknown3 = reader.ReadInt32();
-
             // Mod lists
             saveFile.BoundMods = reader.ReadModList();
             saveFile.RecentModHistory = reader.ReadModList();
             saveFile.FullModHistory = reader.ReadModList();
 
-            // Pointer to the end of the hero data section - we can ignore this when reading
-            var postHeroDataIndex = reader.ReadInt32();
+            // Pointer to the end of the hero data section - we can ignore this
+            // when reading
+            Debug.WriteLine($"Hero pointer position: {reader.BaseStream.Position}");
+            var heroPointer = reader.ReadInt32();
+            Debug.WriteLine($"Hero pointer: {heroPointer}");
+
+            // Unknown - 11 bytes
+            saveFile.Unknown3 = reader.ReadBytes(11);
+
+            // 0xFF block
+            saveFile.Block1 = reader.ReadBlock(8);
+
+            // Unknown - 10 bytes
+            saveFile.Unknown4 = reader.ReadBytes(10);
+
+            // Face
+            saveFile.Face = reader.ReadInt32();
+
+            // Hairstyle
+            saveFile.Hairstyle = reader.ReadInt32();
+
+            // Hair color
+            saveFile.HairColor = reader.ReadInt32();
+
+            // Unknown - 43 bytes
+            saveFile.Unknown5 = reader.ReadBytes(43);
+
+            // Cheater - it seems 67 and 78 mean no cheater, and 214 means yes
+            // cheater. Considering it's an entire int and multiple values are
+            // possible, it's probably safest to not store this as a bool yet.
+            saveFile.Cheater = reader.ReadInt32();
+
+            // Unknown - 46 bytes
+            saveFile.Unknown6 = reader.ReadBytes(46);
+
+            // Character name
+            saveFile.CharacterName = reader.ReadShortString();
+
+            // Unknown - 2 bytes
+            saveFile.Unknown7 = reader.ReadBytes(2);
+
+            // Player number (???)
+            saveFile.PlayerNumber = reader.ReadShortString();
+
+            // Unknown - 84 bytes
+            saveFile.Unknown8 = reader.ReadBytes(84);
+
+            // Level
+            saveFile.Level = reader.ReadInt32();
+
+            // Experience
+            saveFile.Experience = reader.ReadInt32();
+
+            // Fame level
+            saveFile.FameLevel = reader.ReadInt32();
+
+            // Fame
+            saveFile.Fame = reader.ReadInt32();
+
+            // Health
+            saveFile.Health = reader.ReadSingle();
+
+            // Health bonus
+            saveFile.HealthBonus = reader.ReadInt32();
+
+            // Unknown - 4 bytes
+            saveFile.Unknown9 = reader.ReadBytes(4);
+
+            // Mana
+            saveFile.Mana = reader.ReadSingle();
+
+            // Mana bonus
+            saveFile.ManaBonus = reader.ReadInt32();
+
+            // Unknown - 20 bytes
+            saveFile.Unknown10 = reader.ReadBytes(20);
+
+            // Unallocated skill points
+            saveFile.UnallocatedSkillPoints = reader.ReadInt32();
+
+            // Unallocated attribute points
+            saveFile.UnallocatedAttributePoints = reader.ReadInt32();
+
+            // Unknown - 24 bytes
+            saveFile.Unknown11 = reader.ReadBytes(24);
+
+            // 0xFF block - 24 bytes
+            saveFile.Block2 = reader.ReadBlock(24);
+
+            // Skills
+            saveFile.Skills = reader.ReadSkillList();
+
+            // Spells
+            saveFile.Spells = reader.ReadSpellList();
+
+            // Unknown - 28 bytes
+            saveFile.Unknown12 = reader.ReadBytes(28);
+
+            // Attributes
+            saveFile.Strength = reader.ReadInt32();
+            saveFile.Dexterity = reader.ReadInt32();
+            saveFile.Vitality = reader.ReadInt32();
+            saveFile.Focus = reader.ReadInt32();
+
+            // Gold
+            saveFile.Gold = reader.ReadInt32();
+
+            // Unknown - 4 bytes
+            saveFile.Unknown13 = reader.ReadBytes(4);
+
+            // 0xFF block - 13 bytes
+            saveFile.Block3 = reader.ReadBlock(13);
+
+            // Mod ids
+            saveFile.ModIds = reader.ReadModIdList();
+
+            // Items
+            saveFile.Items = reader.ReadItemList();
+
+            Debug.WriteLine($"Current position: {reader.BaseStream.Position}");
+
+            saveFile.Rest = reader.ReadBytes(2048);
 
             return saveFile;
         }

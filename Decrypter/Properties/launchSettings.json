@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Decrypter": {
+      "commandName": "Project",
+      "commandLineArgs": "decrypt GONZALES_{42ED4F31-C97B-42D2-ADCE-091F02B28A62}.SVB GonzalesDecrypted.bin"
+    }
+  }
+}
