@@ -33,19 +33,6 @@ namespace Tl2SaveEdit
             return strings;
         }
 
-        public static byte[][] ReadUnknownArray(this BinaryReader reader, int size)
-        {
-            var count = reader.ReadInt32();
-            var bytes = new byte[count][];
-
-            for (var i = 0; i < count; i++)
-            {
-                bytes[i] = reader.ReadBytes(size);
-            }
-
-            return bytes;
-        }
-
         public static ModList ReadModList(this BinaryReader reader)
         {
             var length = reader.ReadInt32();
@@ -174,32 +161,34 @@ namespace Tl2SaveEdit
         {
             var item = new Item();
 
-            item.Unknown1 = reader.ReadBytes(9);
+            item.MagicByte = reader.ReadByte();
+            item.Id = reader.ReadInt64();
             item.Name = reader.ReadShortString();
             item.Prefix = reader.ReadShortString();
             item.Suffix = reader.ReadShortString();
-            item.Unknown2 = reader.ReadBytes(24);
+            item.Unknown1 = reader.ReadBytes(24);
             item.ModIds = reader.ReadModIdList();
-            item.Unknown3 = reader.ReadBytes(29);
+            item.Unknown2 = reader.ReadBytes(29);
             item.EnchantmentCount = reader.ReadInt32();
             item.StashPosition = reader.ReadInt32();
-            item.Unknown4 = reader.ReadBytes(95);
+            item.Unknown3 = reader.ReadBytes(95);
             item.Level = reader.ReadInt32();
-            item.Unknown5 = reader.ReadBytes(4);
+            item.StackSize = reader.ReadBytes(4);
             item.SocketCount = reader.ReadInt32();
             item.Socketables = reader.ReadItemList();
-            item.Unknown6 = reader.ReadBytes(4);
+            item.Unknown4 = reader.ReadBytes(4);
             item.WeaponDamage = reader.ReadInt32();
             item.Armor = reader.ReadInt32();
             item.ArmorType = reader.ReadInt32();
-            item.Unknown7 = reader.ReadBytes(12);
-            item.Unknown8Count = reader.ReadInt16();
-            item.Unknown8 = reader.ReadBytes(item.Unknown8Count * 12);
+            item.Unknown5 = reader.ReadBytes(12);
+            item.Unknown6Count = reader.ReadInt16();
+            item.Unknown6 = reader.ReadBytes(item.Unknown6Count * 12);
             item.Modifiers1 = reader.ReadModifierArray();
             item.Modifiers2 = reader.ReadModifierArray();
             item.Modifiers3 = reader.ReadModifierArray();
-            item.Modifiers4 = reader.ReadShortStringArray();
-            item.Unknown9 = reader.ReadUnknownArray(12);
+            item.Augments = reader.ReadShortStringArray();
+            item.Unknown7Count = reader.ReadInt32();
+            item.Unknown7 = reader.ReadBytes(item.Unknown7Count * 12);
 
             return item;
         }
@@ -221,47 +210,67 @@ namespace Tl2SaveEdit
         {
             var modifier = new Modifier();
 
-            modifier.Type = (ModifierType)reader.ReadInt32();
+            modifier.Flags = (ModifierFlags)reader.ReadInt32();
             modifier.Name = reader.ReadShortString();
 
-            if (modifier.Type.HasFlag(ModifierType.ExtraName))
+            if (modifier.Flags.HasFlag(ModifierFlags.HasGraph))
             {
-                modifier.ExtraName = reader.ReadShortString();
+                modifier.Graph = reader.ReadShortString();
             }
 
-            if (modifier.Type.HasFlag(ModifierType.ExtraExtraName))
+            if (modifier.Flags.HasFlag(ModifierFlags.HasParticles))
             {
-                modifier.ExtraExtraName = reader.ReadShortString();
+                modifier.Particles = reader.ReadShortString();
             }
 
-            if (modifier.Type.HasFlag(ModifierType.Id))
+            if (modifier.Flags.HasFlag(ModifierFlags.HasUnitTheme))
             {
-                modifier.Id = reader.ReadInt64();
+                modifier.UnitThemeId = reader.ReadInt64();
             }
 
-            var parameterCount = reader.ReadByte();
-            modifier.Parameters = new float[parameterCount];
+            var propertyCount = reader.ReadByte();
+            modifier.Properties = new float[propertyCount];
 
-            for (var i = 0; i < parameterCount; i++)
+            for (var i = 0; i < propertyCount; i++)
             {
-                modifier.Parameters[i] = reader.ReadSingle();
+                modifier.Properties[i] = reader.ReadSingle();
             }
 
-            modifier.Unknown1 = reader.ReadBytes(2);
-            modifier.StatParameter1 = reader.ReadInt32();
-            modifier.StatParameter2 = reader.ReadInt32();
-            modifier.Unknown2 = reader.ReadBytes(8);
-            modifier.StatParameter3 = reader.ReadSingle();
-            modifier.Unknown3 = reader.ReadBytes(4);
-            modifier.ValueParameter = reader.ReadSingle();
-            modifier.Unknown4 = reader.ReadBytes(4);
+            var statNameCount = reader.ReadInt16();
+            modifier.StatNames = new StatName[statNameCount];
 
-            if (modifier.Type.HasFlag(ModifierType.EndName))
+            for (var i = 0; i < statNameCount; i++)
             {
-                modifier.EndName = reader.ReadByteString();
+                modifier.StatNames[i] = reader.ReadStatName();
+            }
+
+            modifier.EffectType = reader.ReadInt32();
+            modifier.DamageType = (ModifierDamageType)reader.ReadInt32();
+            modifier.Activation = (ModifierActivation)reader.ReadInt32();
+            modifier.Level = reader.ReadInt32();
+            modifier.Duration = reader.ReadSingle();
+            modifier.Unknown1 = reader.ReadBytes(4);
+            modifier.DisplayValue = reader.ReadSingle();
+            modifier.Source = (ModifierSource)reader.ReadInt32();
+
+            if (modifier.Flags.HasFlag(ModifierFlags.HasIcon))
+            {
+                modifier.Icon = reader.ReadByteString();
             }
 
             return modifier;
+        }
+
+        public static StatName ReadStatName(this BinaryReader reader)
+        {
+            var id = reader.ReadInt64();
+            var percentage = reader.ReadSingle();
+
+            return new StatName
+            {
+                Id = id,
+                Percentage = percentage,
+            };
         }
     }
 }

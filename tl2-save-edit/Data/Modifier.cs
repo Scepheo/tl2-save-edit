@@ -2,20 +2,21 @@
 {
     public class Modifier
     {
-        public ModifierType Type { get; internal set; }
-        public string Name { get; internal set; }
-        public string ExtraName { get; internal set; }
-        public string ExtraExtraName { get; internal set; }
-        public long Id { get; internal set; }
-        public float[] Parameters { get; internal set; }
-        public byte[] Unknown1 { get; internal set; }
-        public int StatParameter1 { get; internal set; }
-        public int StatParameter2 { get; internal set; }
-        public byte[] Unknown2 { get; internal set; }
-        public float StatParameter3 { get; internal set; }
-        public byte[] Unknown3 { get; internal set; }
-        public float ValueParameter { get; internal set; }
-        public byte[] Unknown4 { get; internal set; }
-        public string EndName { get; internal set; }
+        public ModifierFlags Flags { get; set; }
+        public string Name { get; set; }
+        public string Graph { get; set; }
+        public string Particles { get; set; }
+        public long UnitThemeId { get; set; }
+        public float[] Properties { get; set; }
+        public StatName[] StatNames { get; set; }
+        public int EffectType { get; set; }
+        public ModifierDamageType DamageType { get; set; }
+        public ModifierActivation Activation { get; set; }
+        public int Level { get; set; }
+        public float Duration { get; set; }
+        public byte[] Unknown1 { get; set; }
+        public float DisplayValue { get; set; }
+        public ModifierSource Source { get; set; }
+        public string Icon { get; set; }
     }
 }

@@ -6,6 +6,6 @@ namespace Tl2SaveEdit.Data
 {
     class SocketableList
     {
-        public Socketable[] Socketables { get; internal set; }
+        public Socketable[] Socketables { get; set; }
     }
 }
