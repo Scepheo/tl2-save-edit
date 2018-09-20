@@ -41,7 +41,6 @@ namespace Tl2SaveEdit
         public int UnallocatedSkillPoints { get; internal set; }
         public int UnallocatedAttributePoints { get; internal set; }
         public byte[] Unknown11 { get; internal set; }
-        public byte[] Block2 { get; internal set; }
         public SkillList Skills { get; internal set; }
         public SpellList Spells { get; internal set; }
         public byte[] Unknown12 { get; internal set; }
@@ -51,7 +50,7 @@ namespace Tl2SaveEdit
         public int Focus { get; internal set; }
         public int Gold { get; internal set; }
         public byte[] Unknown13 { get; internal set; }
-        public byte[] Block3 { get; internal set; }
+        public byte[] Block2 { get; internal set; }
         public ModIdList ModIds { get; internal set; }
         public ItemList Items { get; internal set; }
         public byte[] Rest { get; internal set; }

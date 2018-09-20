@@ -32,15 +32,7 @@ namespace InfoDump
             using (var writer = new StreamWriter(outputFilename))
             using (var indentedWriter = new IndentedTextWriter(writer, "  "))
             {
-                foreach (var property in saveFile.GetType().GetProperties())
-                {
-                    indentedWriter.WriteLine(property.Name);
-                    indentedWriter.Indent++;
-                    var value = property.GetValue(saveFile);
-                    Dumper.Dump(indentedWriter, value);
-                    indentedWriter.Indent--;
-                    indentedWriter.WriteLine();
-                }
+                Dumper.DumpProperties(indentedWriter, saveFile);
             }
 
             return 0;

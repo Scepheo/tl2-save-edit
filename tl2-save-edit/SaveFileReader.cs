@@ -154,11 +154,8 @@ namespace Tl2SaveEdit
             // Unallocated attribute points
             saveFile.UnallocatedAttributePoints = reader.ReadInt32();
 
-            // Unknown - 24 bytes
-            saveFile.Unknown11 = reader.ReadBytes(24);
-
-            // 0xFF block - 24 bytes
-            saveFile.Block2 = reader.ReadBlock(24);
+            // Unknown - 48 bytes
+            saveFile.Unknown11 = reader.ReadBytes(48);
 
             // Skills
             saveFile.Skills = reader.ReadSkillList();
@@ -182,7 +179,7 @@ namespace Tl2SaveEdit
             saveFile.Unknown13 = reader.ReadBytes(4);
 
             // 0xFF block - 13 bytes
-            saveFile.Block3 = reader.ReadBlock(13);
+            saveFile.Block2 = reader.ReadBlock(13);
 
             // Mod ids
             saveFile.ModIds = reader.ReadModIdList();

@@ -145,11 +145,8 @@ namespace Tl2SaveEdit
             // Unallocated attribute points
             writer.Write(saveFile.UnallocatedAttributePoints);
 
-            // Unknown - 24 bytes
+            // Unknown - 48 bytes
             writer.Write(saveFile.Unknown11);
-
-            // 0xFF block - 24 bytes
-            writer.Write(saveFile.Block2);
 
             // Skills
             writer.WriteSkillList(saveFile.Skills);
@@ -173,7 +170,7 @@ namespace Tl2SaveEdit
             writer.Write(saveFile.Unknown13);
 
             // 0xFF block - 13 bytes
-            writer.Write(saveFile.Block3);
+            writer.Write(saveFile.Block2);
 
             // Mod ids
             writer.WriteModIdList(saveFile.ModIds);

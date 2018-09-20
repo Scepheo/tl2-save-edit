@@ -1,6 +1,5 @@
 ﻿using System;
 using System.CodeDom.Compiler;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Tl2SaveEdit.Data;
@@ -9,16 +8,42 @@ namespace InfoDump
 {
     internal static class Dumper
     {
+        public static void DumpProperties(IndentedTextWriter writer, object obj)
+        {
+            foreach (var property in obj.GetType().GetProperties())
+            {
+                writer.WriteLine(property.Name);
+                writer.Indent++;
+                var value = property.GetValue(obj);
+                Dump(writer, value);
+                writer.Indent--;
+            }
+        }
+
         public static void Dump(IndentedTextWriter writer, object obj)
         {
             switch (obj)
             {
+                case ItemList itemList:
+                    Dump(writer, itemList);
+                    break;
                 case byte[] byteArray:
                     Dump(writer, byteArray);
                     break;
                 default:
                     writer.WriteLine(obj.ToString());
                     return;
+            }
+        }
+
+        private static void Dump(IndentedTextWriter writer, ItemList itemList)
+        {
+            for (var i = 0; i < itemList.Items.Length; i++)
+            {
+                writer.WriteLine($"Item {i}:");
+                writer.Indent++;
+                DumpProperties(writer, itemList.Items[i]);
+                writer.Indent--;
             }
         }
 

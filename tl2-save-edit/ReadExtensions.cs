@@ -180,28 +180,26 @@ namespace Tl2SaveEdit
             item.Suffix = reader.ReadShortString();
             item.Unknown2 = reader.ReadBytes(24);
             item.ModIds = reader.ReadModIdList();
-            item.Unknown3 = reader.ReadBytes(1);
-            item.Block1 = reader.ReadBlock(24);
-            item.Unknown4 = reader.ReadBytes(4);
+            item.Unknown3 = reader.ReadBytes(29);
             item.EnchantmentCount = reader.ReadInt32();
             item.StashPosition = reader.ReadInt32();
-            item.Unknown5 = reader.ReadBytes(95);
+            item.Unknown4 = reader.ReadBytes(95);
             item.Level = reader.ReadInt32();
-            item.Unknown6 = reader.ReadBytes(4);
+            item.Unknown5 = reader.ReadBytes(4);
             item.SocketCount = reader.ReadInt32();
             item.Socketables = reader.ReadItemList();
-            item.Unknown7 = reader.ReadBytes(4);
+            item.Unknown6 = reader.ReadBytes(4);
             item.WeaponDamage = reader.ReadInt32();
             item.Armor = reader.ReadInt32();
             item.ArmorType = reader.ReadInt32();
-            item.Unknown8 = reader.ReadBytes(12);
-            item.Unknown9Count = reader.ReadInt16();
-            item.Unknown9 = reader.ReadBytes(item.Unknown9Count * 12);
+            item.Unknown7 = reader.ReadBytes(12);
+            item.Unknown8Count = reader.ReadInt16();
+            item.Unknown8 = reader.ReadBytes(item.Unknown8Count * 12);
             item.Modifiers1 = reader.ReadModifierArray();
             item.Modifiers2 = reader.ReadModifierArray();
             item.Modifiers3 = reader.ReadModifierArray();
             item.Modifiers4 = reader.ReadShortStringArray();
-            item.Unknown10 = reader.ReadUnknownArray(12);
+            item.Unknown9 = reader.ReadUnknownArray(12);
 
             return item;
         }
