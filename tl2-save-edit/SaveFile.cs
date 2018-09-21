@@ -15,50 +15,8 @@ namespace Tl2SaveEdit
         public ModList BoundMods { get; set; }
         public ModList RecentModHistory { get; set; }
         public ModList FullModHistory { get; set; }
-        public byte[] Unknown3 { get; set; }
-        public byte[] Block1 { get; set; }
-        public byte[] Unknown4 { get; set; }
-        public int Face { get; set; }
-        public int Hairstyle { get; set; }
-        public int HairColor { get; set; }
-        public byte[] Unknown5 { get; set; }
-        public int Cheater { get; set; }
-        public byte[] Unknown6 { get; set; }
-        public string CharacterName { get; set; }
-        public byte[] Unknown7 { get; set; }
-        public string PlayerNumber { get; set; }
-        public byte[] Unknown8 { get; set; }
-        public int Level { get; set; }
-        public int Experience { get; set; }
-        public int FameLevel { get; set; }
-        public int Fame { get; set; }
-        public float Health { get; set; }
-        public int HealthBonus { get; set; }
-        public byte[] Unknown9 { get; set; }
-        public float Mana { get; set; }
-        public int ManaBonus { get; set; }
-        public byte[] Unknown10 { get; set; }
-        public int UnallocatedSkillPoints { get; set; }
-        public int UnallocatedAttributePoints { get; set; }
-        public byte[] Unknown11 { get; set; }
-        public SkillList Skills { get; set; }
-        public SpellList Spells { get; set; }
-        public byte[] Unknown12 { get; set; }
-        public int Strength { get; set; }
-        public int Dexterity { get; set; }
-        public int Vitality { get; set; }
-        public int Focus { get; set; }
-        public int Gold { get; set; }
-        public byte[] Unknown13 { get; set; }
-        public byte[] Block2 { get; set; }
-        public ModIdList ModIds { get; set; }
-        public ItemList Items { get; set; }
-        public Passive[] Passives1 { get; internal set; }
-        public Passive[] Passives2 { get; internal set; }
-        public byte[] Unknown14 { get; internal set; }
-        public string[] Unknown15 { get; internal set; }
-        public byte[] Unknown16 { get; internal set; }
-        public byte[] SomeMore { get; internal set; }
+        public HeroData HeroData { get; set; }
+        public byte[] Rest { get; internal set; }
 
         public static SaveFile Parse(byte[] data)
         {

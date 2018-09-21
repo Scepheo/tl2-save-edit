@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Tl2SaveEdit.Data
 {
@@ -27,5 +28,18 @@ namespace Tl2SaveEdit.Data
         IsForWeapon        = 0x0008_0000,
         IsForArmor         = 0x0010_0000,
         IsDisabled         = 0x0020_0000,
+    }
+
+    internal static class ModifierFlagsExtensions
+    {
+        public static ModifierFlags ReadModifierFlags(this BinaryReader reader)
+        {
+            return (ModifierFlags)reader.ReadInt32();
+        }
+
+        public static void WriteModifierFlags(this BinaryWriter writer, ModifierFlags modifierFlags)
+        {
+            writer.Write((int)modifierFlags);
+        }
     }
 }
