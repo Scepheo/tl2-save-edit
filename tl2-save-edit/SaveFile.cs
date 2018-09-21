@@ -53,7 +53,12 @@ namespace Tl2SaveEdit
         public byte[] Block2 { get; set; }
         public ModIdList ModIds { get; set; }
         public ItemList Items { get; set; }
-        public byte[] Rest { get; set; }
+        public Passive[] Passives1 { get; internal set; }
+        public Passive[] Passives2 { get; internal set; }
+        public byte[] Unknown14 { get; internal set; }
+        public string[] Unknown15 { get; internal set; }
+        public byte[] Unknown16 { get; internal set; }
+        public byte[] SomeMore { get; internal set; }
 
         public static SaveFile Parse(byte[] data)
         {

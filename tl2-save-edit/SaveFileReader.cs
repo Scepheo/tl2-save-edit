@@ -73,9 +73,8 @@ namespace Tl2SaveEdit
 
             // Pointer to the end of the hero data section - we can ignore this
             // when reading
-            Debug.WriteLine($"Hero pointer position: {reader.BaseStream.Position}");
+            var heroPointerPosition = reader.BaseStream.Position;
             var heroPointer = reader.ReadInt32();
-            Debug.WriteLine($"Hero pointer: {heroPointer}");
 
             // Unknown - 11 bytes
             saveFile.Unknown3 = reader.ReadBytes(11);
@@ -187,9 +186,30 @@ namespace Tl2SaveEdit
             // Items
             saveFile.Items = reader.ReadItemList();
 
-            Debug.WriteLine($"Current position: {reader.BaseStream.Position}");
+            // These appear to be passives
+            saveFile.Passives1 = reader.ReadPassives();
 
-            saveFile.Rest = reader.ReadBytes(2048);
+            // More passives?
+            saveFile.Passives2 = reader.ReadPassives();
+
+            // Always zero?
+            saveFile.Unknown14 = reader.ReadBytes(4);
+
+            // List of strings
+            saveFile.Unknown15 = reader.ReadShortStringArray();
+
+            // No idea what this is, but it appears to always be the same:
+            //   2   0   0   0
+            // 204  24   3 142
+            // 135  95   1 145
+            //   0   0   0   0
+            // 240 206 164 165
+            //  75 144  61 111
+            saveFile.Unknown16 = reader.ReadBytes(24);
+
+            // END OF HERO DATA
+
+            saveFile.SomeMore = reader.ReadBytes(512);
 
             return saveFile;
         }

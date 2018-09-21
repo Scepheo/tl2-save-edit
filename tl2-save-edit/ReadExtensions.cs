@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using Tl2SaveEdit.Data;
 
@@ -173,7 +174,7 @@ namespace Tl2SaveEdit
             item.StashPosition = reader.ReadInt32();
             item.Unknown3 = reader.ReadBytes(95);
             item.Level = reader.ReadInt32();
-            item.StackSize = reader.ReadBytes(4);
+            item.StackSize = reader.ReadInt32();
             item.SocketCount = reader.ReadInt32();
             item.Socketables = reader.ReadItemList();
             item.Unknown4 = reader.ReadBytes(4);
@@ -271,6 +272,75 @@ namespace Tl2SaveEdit
                 Id = id,
                 Percentage = percentage,
             };
+        }
+
+        public static Passive[] ReadPassives(this BinaryReader reader)
+        {
+            var count = reader.ReadInt32();
+            var passives = new Passive[count];
+
+            for (var i = 0; i < count; i++)
+            {
+                passives[i] = reader.ReadPassive();
+            }
+
+            return passives;
+        }
+
+        public static Passive ReadPassive(this BinaryReader reader)
+        {
+            var passive = new Passive();
+
+            // Embermage
+            ////////////
+
+            // Berserker
+            ////////////
+            // MELEE_DAMAGE_BONUS   = 80 = 0101_0000
+            // Size = 51
+
+            // Outlander
+            ////////////
+            // WANDERER_PASSIVE_??  = 85 = 0101_0101
+            // Size = 63
+            // WANDERER_CHARGE_RATE = 81 = 0101_0001
+            // Size = 51
+
+            // Engineer
+            ///////////
+            //                      = 81 = 0101_0001
+            // Size = 43
+            // MELEE_DAMAGE_BONUS   = 80 = 0101_0000
+            // Size = 51
+            passive.Flags = reader.ReadInt32();
+            passive.Name = reader.ReadShortString();
+
+            int size;
+
+            if (passive.Name == "MELEE_DAMAGE_BONUS")
+            {
+                size = 51;
+            }
+            else if (passive.Name == "")
+            {
+                size = 43;
+            }
+            else if (passive.Name == "WANDERER_CHARGE_RATE")
+            {
+                size = 51;
+            }
+            else if (passive.Name.StartsWith("WANDERER_PASSIVE_"))
+            {
+                size = 63;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Unknown passive {passive.Name}");
+            }
+
+            passive.Unknown1 = reader.ReadBytes(size);
+
+            return passive;
         }
     }
 }

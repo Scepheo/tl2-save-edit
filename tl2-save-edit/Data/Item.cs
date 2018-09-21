@@ -14,7 +14,7 @@
         public int StashPosition { get; set; }
         public byte[] Unknown3 { get; set; }
         public int Level { get; set; }
-        public byte[] StackSize { get; set; }
+        public int StackSize { get; set; }
         public int SocketCount { get; set; }
         public ItemList Socketables { get; set; }
         public byte[] Unknown4 { get; set; }

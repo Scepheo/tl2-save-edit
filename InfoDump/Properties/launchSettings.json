@@ -2,7 +2,7 @@
   "profiles": {
     "InfoDump": {
       "commandName": "Project",
-      "commandLineArgs": "\"VON BARTLESBY_{5AB36034-5A13-4255-9700-3CCBC025D808}.SVB\" dump.txt"
+      "commandLineArgs": "\"CHALOZ_{31311524-79F1-47CC-A8D6-56A9E3097E88}.SVB\" dump.txt"
     }
   }
 }
