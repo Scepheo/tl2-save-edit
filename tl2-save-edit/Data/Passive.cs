@@ -5,9 +5,9 @@ namespace Tl2SaveEdit.Data
 {
     public class Passive
     {
-        public int Flags { get; internal set; }
-        public ShortString Name { get; internal set; }
-        public byte[] Unknown1 { get; internal set; }
+        public int Flags { get; set; }
+        public ShortString Name { get; set; }
+        public byte[] Unknown1 { get; set; }
 
         internal int GetSize()
         {

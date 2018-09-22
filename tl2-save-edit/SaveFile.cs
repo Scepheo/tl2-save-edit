@@ -16,7 +16,7 @@ namespace Tl2SaveEdit
         public ModList RecentModHistory { get; set; }
         public ModList FullModHistory { get; set; }
         public HeroData HeroData { get; set; }
-        public byte[] Rest { get; internal set; }
+        public byte[] Rest { get; set; }
 
         public static SaveFile Parse(byte[] data)
         {
