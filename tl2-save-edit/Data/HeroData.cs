@@ -102,6 +102,10 @@ namespace Tl2SaveEdit.Data
         {
             var heroData = new HeroData();
 
+            // Pointer to the end of the hero data - we don't need this, but we
+            // still need to read it.
+            var heroPointer = reader.ReadInt32();
+
             // Unknown - 11 bytes
             heroData.Unknown3 = reader.ReadBytes(11);
 
@@ -239,8 +243,7 @@ namespace Tl2SaveEdit.Data
         public static void WriteHeroData(this BinaryWriter writer, HeroData saveFile)
         {
             // Pointer to the end of the hero data section
-            var heroPointer = writer.BaseStream.Position + saveFile.GetSize();
-            writer.Write(heroPointer);
+            writer.Write(saveFile.GetSize());
 
             // Unknown - 11 bytes
             writer.Write(saveFile.Unknown3);

@@ -27,8 +27,8 @@ namespace Tl2SaveEdit.Data
     {
         public static ShortString ReadShortString(this BinaryReader reader)
         {
-            var size = reader.ReadInt16();
-            var bytes = reader.ReadBytes(size);
+            var length = reader.ReadInt16();
+            var bytes = reader.ReadBytes(length * 2);
             var str = Encoding.Unicode.GetString(bytes);
             return new ShortString(str);
         }
@@ -37,8 +37,8 @@ namespace Tl2SaveEdit.Data
         {
             var str = shortString.ToString();
             var bytes = Encoding.Unicode.GetBytes(str);
-            var size = (short)bytes.Length;
-            writer.Write(size);
+            var length = (short)bytes.Length / 2;
+            writer.Write(length);
             writer.Write(bytes);
         }
     }
