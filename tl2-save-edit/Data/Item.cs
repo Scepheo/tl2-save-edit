@@ -9,6 +9,10 @@ namespace Tl2SaveEdit.Data
         public ShortString Name { get; set; }
         public ShortString Prefix { get; set; }
         public ShortString Suffix { get; set; }
+
+        /// <summary>
+        /// Unknown, but bytes 8 through 15 appear to change upon every save
+        /// </summary>
         public byte[] Unknown1 { get; set; }
         public ModIdList ModIds { get; set; }
         public byte[] Unknown2 { get; set; }

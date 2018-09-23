@@ -72,6 +72,12 @@ namespace Tl2SaveEdit.Data
                 throw new InvalidOperationException($"Unknown passive {passive.Name}");
             }
 
+            // No idea how this works
+            if ((passive.Flags & 0x0100) > 0)
+            {
+                size += 2;
+            }
+
             passive.Unknown1 = reader.ReadBytes(size);
 
             return passive;

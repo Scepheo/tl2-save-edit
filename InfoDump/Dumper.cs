@@ -8,9 +8,14 @@ namespace InfoDump
 {
     internal static class Dumper
     {
-        public static void DumpProperties(IndentedTextWriter writer, object obj)
+        public static void DumpProperties(IndentedTextWriter writer, object obj, params string[] exclude)
         {
-            foreach (var property in obj.GetType().GetProperties())
+            var properties = obj
+                .GetType()
+                .GetProperties()
+                .Where(property => !exclude.Contains(property.Name));
+
+            foreach (var property in properties)
             {
                 writer.WriteLine(property.Name);
                 writer.Indent++;
@@ -30,8 +35,11 @@ namespace InfoDump
                 case byte[] byteArray:
                     Dump(writer, byteArray);
                     break;
+                case HeroData heroData:
+                    DumpProperties(writer, heroData);
+                    break;
                 default:
-                    writer.WriteLine(obj.ToString());
+                    writer.WriteLine(obj?.ToString());
                     return;
             }
         }

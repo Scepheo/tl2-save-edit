@@ -31,7 +31,9 @@ namespace InfoDump
             using (var writer = new StreamWriter(outputFilename))
             using (var indentedWriter = new IndentedTextWriter(writer, "  "))
             {
-                Dumper.DumpProperties(indentedWriter, saveFile);
+                Dumper.DumpProperties(
+                    indentedWriter,
+                    saveFile, nameof(saveFile.Rest));
             }
 
             return 0;
