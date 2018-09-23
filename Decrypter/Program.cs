@@ -48,16 +48,11 @@ namespace Decrypter
 
             var data = File.ReadAllBytes(inputFilename);
 
-            if (encrypt)
-            {
-                Encryption.Encrypt(data);
-            }
-            else
-            {
-                Encryption.Decrypt(data);
-            }
+            var result = encrypt
+                ? Encryption.Encrypt(data)
+                : Encryption.Decrypt(data);
 
-            File.WriteAllBytes(outputFilename, data);
+            File.WriteAllBytes(outputFilename, result);
             return 0;
         }
     }

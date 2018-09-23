@@ -4,56 +4,67 @@ namespace Tl2SaveEdit
 {
     public static class Encryption
     {
-        public static void Decrypt(byte[] data)
+        public static byte[] Decrypt(byte[] data)
         {
-            // Remove checksum
-            var checksum = (uint)0;
-            BitConverter.GetBytes(checksum).CopyTo(data, 5);
+            // Extract actual data
+            var result = new byte[data.Length - 13];
+            Array.Copy(data, 9, result, 0, data.Length - 13);
 
             // Decrypt
-            var startIndex = 9;
-            var endIndex = data.Length - 5;
+            var startIndex = 0;
+            var endIndex = result.Length - 1;
 
             while (startIndex <= endIndex)
             {
-                var start = data[startIndex];
-                var end = data[endIndex];
+                var start = result[startIndex];
+                var end = result[endIndex];
 
-                data[startIndex] = XorMask((byte)((start >> 4) | (end << 4)));
-                data[endIndex] = XorMask((byte)((start << 4) | (end >> 4)));
+                result[startIndex] = XorMask((byte)((start >> 4) | (end << 4)));
+                result[endIndex] = XorMask((byte)((start << 4) | (end >> 4)));
 
                 startIndex++;
                 endIndex--;
             }
 
-            // Write length
-            BitConverter.GetBytes(data.Length).CopyTo(data, data.Length - sizeof(int));
+            return result;
         }
 
-        public static void Encrypt(byte[] data)
+        public static byte[] Encrypt(byte[] data)
         {
-            // Write checksum
+            // Create new array
+            var result = new byte[data.Length + 13];
+            Array.Copy(data, 0, result, 9, data.Length);
+
+            // Version
+            BitConverter.GetBytes(0x44).CopyTo(result, 0);
+
+            // Magic byte
+            result[4] = 0x01;
+
+            // Checksum
             var checksum = GetChecksum(data);
-            BitConverter.GetBytes(checksum).CopyTo(data, 5);
+            BitConverter.GetBytes(checksum).CopyTo(result, 5);
 
             // Encrypt
             var startIndex = 9;
-            var endIndex = data.Length - 5;
+            var endIndex = result.Length - 5;
 
             while (startIndex <= endIndex)
             {
-                var start = XorMask(data[startIndex]);
-                var end = XorMask(data[endIndex]);
+                var start = XorMask(result[startIndex]);
+                var end = XorMask(result[endIndex]);
 
-                data[startIndex] = (byte)((start << 4) | (end >> 4));
-                data[endIndex] = (byte)((start >> 4) | (end << 4));
+                result[startIndex] = (byte)((start << 4) | (end >> 4));
+                result[endIndex] = (byte)((start >> 4) | (end << 4));
 
                 startIndex++;
                 endIndex--;
             }
 
             // Write length
-            BitConverter.GetBytes(data.Length).CopyTo(data, data.Length - sizeof(int));
+            BitConverter.GetBytes(result.Length).CopyTo(result, result.Length - sizeof(int));
+
+            return result;
         }
 
         private static byte XorMask(byte value)
@@ -65,7 +76,7 @@ namespace Tl2SaveEdit
         {
             uint checksum = 0x14d3;
 
-            for (var i = 9; i < data.Length; i++)
+            for (var i = 0; i < data.Length; i++)
             {
                 checksum += checksum << 5;
                 checksum += data[i];

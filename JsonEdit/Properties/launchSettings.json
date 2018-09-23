@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "JsonEdit": {
+      "commandName": "Project",
+      "commandLineArgs": "WRITE \"new berserker.svb\" test.json"
+    }
+  }
+}

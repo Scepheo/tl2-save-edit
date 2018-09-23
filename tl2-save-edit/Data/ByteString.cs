@@ -5,21 +5,21 @@ namespace Tl2SaveEdit.Data
 {
     public class ByteString
     {
-        private string _str;
+        public string Content { get; set; }
 
         public ByteString(string str)
         {
-            _str = str;
+            Content = str;
         }
 
         public override string ToString()
         {
-            return _str;
+            return Content;
         }
 
         internal int GetSize()
         {
-            return sizeof(byte) + Encoding.Unicode.GetByteCount(_str);
+            return sizeof(byte) + Encoding.Unicode.GetByteCount(Content);
         }
     }
 

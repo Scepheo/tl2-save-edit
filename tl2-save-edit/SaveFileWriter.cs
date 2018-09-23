@@ -28,15 +28,6 @@ namespace Tl2SaveEdit
 
         public static void Write(SaveFile saveFile, BinaryWriter writer)
         {
-            // Write version
-            writer.Write(0x44);
-
-            // Write check
-            writer.Write((byte)0x01);
-
-            // The checksum will be written later by the encryption
-            writer.Write(0x00);
-
             // Get class key from class + sex and write it
             var classString = saveFile.IsMale
                 ? new ShortString(saveFile.CharacterClass.MaleKey)
@@ -47,7 +38,7 @@ namespace Tl2SaveEdit
             writer.Write((int)saveFile.Difficulty);
 
             // Hardcore
-            var hardCore = saveFile.Hardcore ? (byte)0x01 : (byte)0x00b;
+            var hardCore = saveFile.Hardcore ? (byte)0x01 : (byte)0x00;
             writer.Write(hardCore);
 
             // New Game+ cycle

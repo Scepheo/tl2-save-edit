@@ -5,21 +5,21 @@ namespace Tl2SaveEdit.Data
 {
     public class ShortString
     {
-        private string _str;
+        public string Content { get; set; }
 
         public ShortString(string str)
         {
-            _str = str;
+            Content = str;
         }
 
         public override string ToString()
         {
-            return _str;
+            return Content;
         }
 
         internal int GetSize()
         {
-            return sizeof(short) + Encoding.Unicode.GetByteCount(_str);
+            return sizeof(short) + Encoding.Unicode.GetByteCount(Content);
         }
     }
 
@@ -37,7 +37,7 @@ namespace Tl2SaveEdit.Data
         {
             var str = shortString.ToString();
             var bytes = Encoding.Unicode.GetBytes(str);
-            var length = (short)bytes.Length / 2;
+            var length = (short)(bytes.Length / 2);
             writer.Write(length);
             writer.Write(bytes);
         }

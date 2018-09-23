@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using Tl2SaveEdit.Data;
 
 namespace Tl2SaveEdit
@@ -26,24 +25,7 @@ namespace Tl2SaveEdit
         {
             var saveFile = new SaveFile();
 
-            // Read the version number
-            var version = reader.ReadInt32();
-
-            if (version != 0x44)
-            {
-                throw new InvalidOperationException($"Save file version 0x{version:2X} did not match expected version 0x44");
-            }
-
-            // Read a check byte that always seems to be 1
-            var check = reader.ReadByte();
-
-            if (check != 0x01)
-            {
-                throw new InvalidOperationException($"Check value 0x{check:2X} did not match expected check 0x01");
-            }
-
-            // Read checksum and ignore it
-            var checksum = reader.ReadInt32();
+            // Version, magic byte and checksum have already been stripped
 
             // Get the class string, and from that, the character's sex
             var classString = reader.ReadShortString();
@@ -75,7 +57,7 @@ namespace Tl2SaveEdit
 
             // Read the rest
             var remaining = reader.BaseStream.Length - reader.BaseStream.Position;
-            saveFile.Rest = reader.ReadBytes((int)remaining);
+            saveFile.Rest = reader.ReadBytes(checked((int)remaining));
 
             return saveFile;
         }

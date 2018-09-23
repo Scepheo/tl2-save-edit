@@ -5,7 +5,7 @@ namespace Tl2SaveEdit.Data
 {
     public class SpellList
     {
-        public Spell[] Spells { get; } = new Spell[4];
+        public Spell[] Spells { get; set; } = new Spell[4];
 
         public override string ToString()
         {

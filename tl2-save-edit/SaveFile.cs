@@ -20,15 +20,14 @@ namespace Tl2SaveEdit
 
         public static SaveFile Parse(byte[] data)
         {
-            Encryption.Decrypt(data);
-            return SaveFileReader.Read(data);
+            var decrypted = Encryption.Decrypt(data);
+            return SaveFileReader.Read(decrypted);
         }
 
         public byte[] Write()
         {
             var data = SaveFileWriter.Write(this);
-            Encryption.Encrypt(data);
-            return data;
+            return Encryption.Encrypt(data);
         }
     }
 }

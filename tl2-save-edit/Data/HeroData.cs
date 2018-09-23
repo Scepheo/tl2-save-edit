@@ -50,7 +50,7 @@ namespace Tl2SaveEdit.Data
         public ShortStringList Unknown14 { get; set; }
         public byte[] Unknown15 { get; set; }
 
-        internal long GetSize()
+        internal int GetSize()
         {
             return Unknown1.Length
                 + Block1.Length
