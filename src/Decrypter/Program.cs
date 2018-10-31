@@ -50,10 +50,19 @@ namespace Decrypter
 
             var result = encrypt
                 ? Encryption.Encrypt(data)
-                : Encryption.Decrypt(data);
+                : ReadAll(Encryption.Decrypt(data));
 
             File.WriteAllBytes(outputFilename, result);
             return 0;
+        }
+
+        private static byte[] ReadAll(Stream stream)
+        {
+            using (var memoryStream = new MemoryStream())
+            {
+                stream.CopyTo(memoryStream);
+                return memoryStream.ToArray();
+            }
         }
     }
 }

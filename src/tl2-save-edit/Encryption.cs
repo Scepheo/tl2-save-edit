@@ -4,36 +4,18 @@ namespace Tl2SaveEdit
 {
     public static class Encryption
     {
-        public static byte[] Decrypt(byte[] data)
+        public static DecryptStream Decrypt(byte[] data)
         {
-            // Extract actual data
-            var result = new byte[data.Length - 13];
-            Array.Copy(data, 9, result, 0, data.Length - 13);
-
-            // Decrypt
-            var startIndex = 0;
-            var endIndex = result.Length - 1;
-
-            while (startIndex <= endIndex)
-            {
-                var start = result[startIndex];
-                var end = result[endIndex];
-
-                result[startIndex] = XorMask((byte)((start >> 4) | (end << 4)));
-                result[endIndex] = XorMask((byte)((start << 4) | (end >> 4)));
-
-                startIndex++;
-                endIndex--;
-            }
-
-            return result;
+            return new DecryptStream(data);
         }
 
         public static byte[] Encrypt(byte[] data)
         {
+            const int headerSize = 9;
+            const int trailerSize = 4;
+
             // Create new array
-            var result = new byte[data.Length + 13];
-            Array.Copy(data, 0, result, 9, data.Length);
+            var result = new byte[data.Length + headerSize + trailerSize];
 
             // Version
             BitConverter.GetBytes(0x44).CopyTo(result, 0);
@@ -46,13 +28,13 @@ namespace Tl2SaveEdit
             BitConverter.GetBytes(checksum).CopyTo(result, 5);
 
             // Encrypt
-            var startIndex = 9;
-            var endIndex = result.Length - 5;
+            var startIndex = headerSize;
+            var endIndex = result.Length - trailerSize - 1;
 
             while (startIndex <= endIndex)
             {
-                var start = XorMask(result[startIndex]);
-                var end = XorMask(result[endIndex]);
+                var start = XorMask(data[startIndex - headerSize]);
+                var end = XorMask(data[endIndex - headerSize]);
 
                 result[startIndex] = (byte)((start << 4) | (end >> 4));
                 result[endIndex] = (byte)((start >> 4) | (end << 4));
@@ -62,7 +44,7 @@ namespace Tl2SaveEdit
             }
 
             // Write length
-            BitConverter.GetBytes(result.Length).CopyTo(result, result.Length - sizeof(int));
+            BitConverter.GetBytes(result.Length).CopyTo(result, result.Length - trailerSize);
 
             return result;
         }

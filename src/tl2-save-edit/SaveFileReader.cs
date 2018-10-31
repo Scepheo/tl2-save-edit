@@ -5,14 +5,6 @@ namespace Tl2SaveEdit
 {
     internal static class SaveFileReader
     {
-        public static SaveFile Read(byte[] data)
-        {
-            using (var stream = new MemoryStream(data))
-            {
-                return Read(stream);
-            }
-        }
-
         public static SaveFile Read(Stream stream)
         {
             using (var reader = new BinaryReader(stream))
