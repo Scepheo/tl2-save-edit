@@ -2,10 +2,9 @@
 
 namespace Tl2SaveEdit
 {
-    public class SaveFile
+    internal class SaveFile
     {
-        public CharacterClass CharacterClass { get; set; }
-        public bool IsMale { get; set; }
+        public ShortString ClassString { get; set; }
         public Difficulty Difficulty { get; set; }
         public bool Hardcore { get; set; }
         public int NewGameCycle { get; set; }

@@ -19,9 +19,8 @@ namespace Tl2SaveEdit
 
             // Version, magic byte and checksum have already been stripped
 
-            // Get the class string, and from that, the character's sex
-            var classString = reader.ReadShortString();
-            (saveFile.CharacterClass, saveFile.IsMale) = CharacterClass.FindByKey(classString.ToString());
+            // Get the class string
+            saveFile.ClassString = reader.ReadShortString();
 
             // Difficulty
             saveFile.Difficulty = (Difficulty)reader.ReadInt32();

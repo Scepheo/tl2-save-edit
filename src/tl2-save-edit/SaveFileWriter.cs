@@ -28,11 +28,8 @@ namespace Tl2SaveEdit
 
         public static void Write(SaveFile saveFile, BinaryWriter writer)
         {
-            // Get class key from class + sex and write it
-            var classString = saveFile.IsMale
-                ? new ShortString(saveFile.CharacterClass.MaleKey)
-                : new ShortString(saveFile.CharacterClass.FemaleKey);
-            writer.WriteShortString(classString);
+            // Class string
+            writer.WriteShortString(saveFile.ClassString);
 
             // Difficulty
             writer.Write((int)saveFile.Difficulty);
