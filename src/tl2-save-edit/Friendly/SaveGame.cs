@@ -11,9 +11,10 @@ namespace Tl2SaveEdit
         public bool Hardcore { get; set; }
         public int NewGameCycle { get; set; }
 
-        private byte[] Unknown1 { get; set; }
-        private int Unknown2Length { get; set; }
-        private byte[] Unknown2 { get; set; }
+        private byte Unknown1 { get; set; }
+        private int Unknown2 { get; set; }
+        private int Unknown3Length { get; set; }
+        private byte[] Unknown3 { get; set; }
         private ModList BoundMods { get; set; }
         private ModList RecentModHistory { get; set; }
         private ModList FullModHistory { get; set; }
@@ -47,8 +48,9 @@ namespace Tl2SaveEdit
             saveGame.Hardcore = saveFile.Hardcore;
             saveGame.NewGameCycle = saveFile.NewGameCycle;
             saveGame.Unknown1 = saveFile.Unknown1;
-            saveGame.Unknown2Length = saveFile.Unknown3Length;
-            saveGame.Unknown2 = saveFile.Unknown3;
+            saveGame.Unknown2 = saveFile.Unknown2;
+            saveGame.Unknown3Length = saveFile.Unknown3Length;
+            saveGame.Unknown3 = saveFile.Unknown3;
             saveGame.BoundMods = saveFile.BoundMods;
             saveGame.RecentModHistory = saveFile.RecentModHistory;
             saveGame.FullModHistory = saveFile.FullModHistory;
@@ -67,8 +69,9 @@ namespace Tl2SaveEdit
             saveFile.Hardcore = Hardcore;
             saveFile.NewGameCycle = NewGameCycle;
             saveFile.Unknown1 = Unknown1;
-            saveFile.Unknown3Length = Unknown2Length;
-            saveFile.Unknown3 = Unknown2;
+            saveFile.Unknown2 = Unknown2;
+            saveFile.Unknown3Length = Unknown3Length;
+            saveFile.Unknown3 = Unknown3;
             saveFile.BoundMods = BoundMods;
             saveFile.RecentModHistory = RecentModHistory;
             saveFile.FullModHistory = FullModHistory;

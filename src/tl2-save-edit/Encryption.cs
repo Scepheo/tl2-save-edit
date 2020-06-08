@@ -51,7 +51,7 @@ namespace Tl2SaveEdit
 
         private static byte XorMask(byte value)
         {
-            return value == 0x00 || value == 0xFF ? value : (byte)(value ^ 0xFF);
+            return value == 0x00 || value == 0xFF ? value : (byte)~value;
         }
 
         private static uint GetChecksum(byte[] data)
