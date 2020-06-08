@@ -8,9 +8,10 @@ namespace Tl2SaveEdit
         public Difficulty Difficulty { get; set; }
         public bool Hardcore { get; set; }
         public int NewGameCycle { get; set; }
-        public byte[] Unknown1 { get; set; }
-        public int Unknown2Length { get; set; }
-        public byte[] Unknown2 { get; set; }
+        public byte Unknown1 { get; set; }
+        public int Unknown2 { get; set; }
+        public int Unknown3Length { get; set; }
+        public byte[] Unknown3 { get; set; }
         public ModList BoundMods { get; set; }
         public ModList RecentModHistory { get; set; }
         public ModList FullModHistory { get; set; }

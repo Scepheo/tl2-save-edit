@@ -47,8 +47,8 @@ namespace Tl2SaveEdit
             saveGame.Hardcore = saveFile.Hardcore;
             saveGame.NewGameCycle = saveFile.NewGameCycle;
             saveGame.Unknown1 = saveFile.Unknown1;
-            saveGame.Unknown2Length = saveFile.Unknown2Length;
-            saveGame.Unknown2 = saveFile.Unknown2;
+            saveGame.Unknown2Length = saveFile.Unknown3Length;
+            saveGame.Unknown2 = saveFile.Unknown3;
             saveGame.BoundMods = saveFile.BoundMods;
             saveGame.RecentModHistory = saveFile.RecentModHistory;
             saveGame.FullModHistory = saveFile.FullModHistory;
@@ -67,8 +67,8 @@ namespace Tl2SaveEdit
             saveFile.Hardcore = Hardcore;
             saveFile.NewGameCycle = NewGameCycle;
             saveFile.Unknown1 = Unknown1;
-            saveFile.Unknown2Length = Unknown2Length;
-            saveFile.Unknown2 = Unknown2;
+            saveFile.Unknown3Length = Unknown2Length;
+            saveFile.Unknown3 = Unknown2;
             saveFile.BoundMods = BoundMods;
             saveFile.RecentModHistory = RecentModHistory;
             saveFile.FullModHistory = FullModHistory;

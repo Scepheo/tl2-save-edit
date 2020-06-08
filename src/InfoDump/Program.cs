@@ -33,7 +33,7 @@ namespace InfoDump
             {
                 Dumper.DumpProperties(
                     indentedWriter,
-                    saveFile, nameof(saveFile.Rest));
+                    saveFile);
             }
 
             return 0;

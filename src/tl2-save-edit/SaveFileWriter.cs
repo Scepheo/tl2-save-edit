@@ -41,12 +41,15 @@ namespace Tl2SaveEdit
             // New Game+ cycle
             writer.Write(saveFile.NewGameCycle);
 
-            // Unknown - five bytes
+            // Unknown - a byte
             writer.Write(saveFile.Unknown1);
 
-            // Unknown - A counter, followed by 12 times that amount of bytes
-            writer.Write(saveFile.Unknown2Length);
+            // Unknown - an int
             writer.Write(saveFile.Unknown2);
+
+            // Unknown - A counter, followed by 12 times that amount of bytes
+            writer.Write(saveFile.Unknown3Length);
+            writer.Write(saveFile.Unknown3);
 
             // Mod lists
             writer.WriteModList(saveFile.BoundMods);

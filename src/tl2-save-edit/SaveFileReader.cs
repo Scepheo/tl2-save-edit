@@ -32,11 +32,12 @@ namespace Tl2SaveEdit
             saveFile.NewGameCycle = reader.ReadInt32();
 
             // Unknown - Five bytes
-            saveFile.Unknown1 = reader.ReadBytes(5);
+            saveFile.Unknown1 = reader.ReadByte();
+            saveFile.Unknown2 = reader.ReadInt32();
 
             // Unknown - A counter, followed by 12 times that amount of bytes
-            saveFile.Unknown2Length = reader.ReadInt32();
-            saveFile.Unknown2 = reader.ReadBytes(saveFile.Unknown2Length * 12);
+            saveFile.Unknown3Length = reader.ReadInt32();
+            saveFile.Unknown3 = reader.ReadBytes(saveFile.Unknown3Length * 12);
 
             // Mod lists
             saveFile.BoundMods = reader.ReadModList();
